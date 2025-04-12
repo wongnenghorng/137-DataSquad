@@ -25,7 +25,6 @@ import {
 
 // Custom components
 import Card from 'components/card/Card';
-import Menu from 'components/menu/MainMenu';
 
 const columnHelper = createColumnHelper();
 
@@ -144,7 +143,6 @@ export default function CheckTable(props) {
         >
           Check Table
         </Text>
-        <Menu />
       </Flex>
       <Box>
         <Table variant="simple" color="gray.500" mb="24px" mt="12px">

@@ -9,7 +9,6 @@ import {
 } from "@chakra-ui/react";
 // Custom components
 import Card from "components/card/Card.js";
-import Menu from "components/menu/MainMenu";
 import IconBox from "components/icons/IconBox";
 
 // Assets
@@ -37,7 +36,6 @@ export default function Conversion(props) {
         <Text color={textColor} fontSize='lg' fontWeight='700'>
           Tasks
         </Text>
-        <Menu ms='auto' />
       </Flex>
       <Box px='11px'>
         <Flex mb='20px'>

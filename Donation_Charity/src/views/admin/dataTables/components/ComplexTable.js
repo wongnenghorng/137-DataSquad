@@ -23,7 +23,6 @@ import {
 } from '@tanstack/react-table';
 // Custom components
 import Card from 'components/card/Card';
-import Menu from 'components/menu/MainMenu';
 import * as React from 'react';
 // Assets
 import { MdCancel, MdCheckCircle, MdOutlineError } from 'react-icons/md';
@@ -172,7 +171,6 @@ export default function ComplexTable(props) {
         >
           Complex Table
         </Text>
-        <Menu />
       </Flex>
       <Box>
         <Table variant="simple" color="gray.500" mb="24px" mt="12px">

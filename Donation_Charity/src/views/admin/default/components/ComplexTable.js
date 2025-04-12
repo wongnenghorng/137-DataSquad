@@ -1,10 +1,6 @@
-/* eslint-disable */
-
 import {
   Box,
   Flex,
-  Icon,
-  Progress,
   Table,
   Tbody,
   Td,
@@ -13,147 +9,45 @@ import {
   Thead,
   Tr,
   useColorModeValue,
+  Button,
+  Spinner,
 } from '@chakra-ui/react';
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
 import Card from 'components/card/Card';
-import Menu from 'components/menu/MainMenu';
-import * as React from 'react';
-import { MdCancel, MdCheckCircle, MdOutlineError } from 'react-icons/md';
+import React, { useEffect, useState } from 'react';
+import { generateClient } from 'aws-amplify/api';
+import { listDonations } from 'graphql/queries';
 
-const columnHelper = createColumnHelper();
-
-// const columns = columnsDataCheck;
-export default function ComplexTable(props) {
-  const { tableData } = props;
-  const [sorting, setSorting] = React.useState([]);
+export default function DonationTable() {
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
-  let defaultData = tableData;
-  const columns = [
-    columnHelper.accessor('name', {
-      id: 'name',
-      header: () => (
-        <Text
-          justifyContent="space-between"
-          align="center"
-          fontSize={{ sm: '10px', lg: '12px' }}
-          color="gray.400"
-        >
-          NAME
-        </Text>
-      ),
-      cell: (info) => (
-        <Flex align="center">
-          <Text color={textColor} fontSize="sm" fontWeight="700">
-            {info.getValue()}
-          </Text>
-        </Flex>
-      ),
-    }),
-    columnHelper.accessor('status', {
-      id: 'status',
-      header: () => (
-        <Text
-          justifyContent="space-between"
-          align="center"
-          fontSize={{ sm: '10px', lg: '12px' }}
-          color="gray.400"
-        >
-          STATUS
-        </Text>
-      ),
-      cell: (info) => (
-        <Flex align="center">
-          <Icon
-            w="24px"
-            h="24px"
-            me="5px"
-            color={
-              info.getValue() === 'Approved'
-                ? 'green.500'
-                : info.getValue() === 'Disable'
-                ? 'red.500'
-                : info.getValue() === 'Error'
-                ? 'orange.500'
-                : null
-            }
-            as={
-              info.getValue() === 'Approved'
-                ? MdCheckCircle
-                : info.getValue() === 'Disable'
-                ? MdCancel
-                : info.getValue() === 'Error'
-                ? MdOutlineError
-                : null
-            }
-          />
-          <Text color={textColor} fontSize="sm" fontWeight="700">
-            {info.getValue()}
-          </Text>
-        </Flex>
-      ),
-    }),
-    columnHelper.accessor('date', {
-      id: 'date',
-      header: () => (
-        <Text
-          justifyContent="space-between"
-          align="center"
-          fontSize={{ sm: '10px', lg: '12px' }}
-          color="gray.400"
-        >
-          DATE
-        </Text>
-      ),
-      cell: (info) => (
-        <Text color={textColor} fontSize="sm" fontWeight="700">
-          {info.getValue()}
-        </Text>
-      ),
-    }),
-    columnHelper.accessor('progress', {
-      id: 'progress',
-      header: () => (
-        <Text
-          justifyContent="space-between"
-          align="center"
-          fontSize={{ sm: '10px', lg: '12px' }}
-          color="gray.400"
-        >
-          PROGRESS
-        </Text>
-      ),
-      cell: (info) => (
-        <Flex align="center">
-          <Progress
-            variant="table"
-            colorScheme="brandScheme"
-            h="8px"
-            w="108px"
-            value={info.getValue()}
-          />
-        </Flex>
-      ),
-    }),
-  ];
-  const [data, setData] = React.useState(() => [...defaultData]);
-  const table = useReactTable({
-    data,
-    columns,
-    state: {
-      sorting,
-    },
-    onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    debugTable: true,
-  });
+  const [donations, setDonations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [pageIndex, setPageIndex] = useState(0);
+  const rowsPerPage = 5;
+
+  useEffect(() => {
+    const fetchDonations = async () => {
+      try {
+        const client = generateClient();
+        const res = await client.graphql({ query: listDonations });
+        const sorted = res.data.listDonations.items.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        );
+        setDonations(sorted);
+      } catch (err) {
+        console.error('Error fetching donations:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDonations();
+  }, []);
+
+  const paginatedDonations = donations.slice(
+    pageIndex * rowsPerPage,
+    pageIndex * rowsPerPage + rowsPerPage,
+  );
+
   return (
     <Card
       flexDirection="column"
@@ -162,80 +56,80 @@ export default function ComplexTable(props) {
       overflowX={{ sm: 'scroll', lg: 'hidden' }}
     >
       <Flex px="25px" mb="8px" justifyContent="space-between" align="center">
-        <Text
-          color={textColor}
-          fontSize="22px"
-          fontWeight="700"
-          lineHeight="100%"
-        >
-          Complex Table
+        <Text color={textColor} fontSize="22px" fontWeight="700">
+          Personal Donation Transaction List
         </Text>
-        <Menu />
       </Flex>
-      <Box>
-        <Table variant="simple" color="gray.500" mb="24px" mt="12px">
-          <Thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <Tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <Th
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      pe="10px"
-                      borderColor={borderColor}
-                      cursor="pointer"
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      <Flex
-                        justifyContent="space-between"
-                        align="center"
-                        fontSize={{ sm: '10px', lg: '12px' }}
-                        color="gray.400"
-                      >
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                        {{
-                          asc: '',
-                          desc: '',
-                        }[header.column.getIsSorted()] ?? null}
-                      </Flex>
-                    </Th>
-                  );
-                })}
+      {loading ? (
+        <Flex justifyContent="center" py={10}>
+          <Spinner size="lg" />
+        </Flex>
+      ) : (
+        <>
+          <Table variant="simple" color="gray.500" mb="24px" mt="12px">
+            <Thead>
+              <Tr>
+                <Th color="gray.400" fontSize="12px">
+                  No
+                </Th>
+                <Th color="gray.400" fontSize="12px">
+                  Donor Name
+                </Th>
+                <Th color="gray.400" fontSize="12px">
+                  Amount
+                </Th>
+                <Th color="gray.400" fontSize="12px">
+                  Receiver
+                </Th>
+                <Th color="gray.400" fontSize="12px">
+                  Created At
+                </Th>
               </Tr>
-            ))}
-          </Thead>
-          <Tbody>
-            {table
-              .getRowModel()
-              .rows.slice(0, 5)
-              .map((row) => {
-                return (
-                  <Tr key={row.id}>
-                    {row.getVisibleCells().map((cell) => {
-                      return (
-                        <Td
-                          key={cell.id}
-                          fontSize={{ sm: '14px' }}
-                          minW={{ sm: '150px', md: '200px', lg: 'auto' }}
-                          borderColor="transparent"
-                        >
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </Td>
-                      );
-                    })}
-                  </Tr>
-                );
-              })}
-          </Tbody>
-        </Table>
-      </Box>
+            </Thead>
+            <Tbody>
+              {paginatedDonations.map((donation, index) => (
+                <Tr key={donation.id}>
+                  <Td fontWeight="700" fontSize="sm">
+                    {index + 1 + pageIndex * rowsPerPage}
+                  </Td>
+                  <Td fontSize="sm">{donation.DonorName}</Td>
+                  <Td fontSize="sm">
+                    RM {parseFloat(donation.DonateAmount || 0).toFixed(2)}
+                  </Td>
+                  <Td fontSize="sm">{donation.ReceiverName}</Td>
+                  <Td fontSize="sm">
+                    {new Date(donation.createdAt).toLocaleString()}
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+          <Flex justifyContent="center" gap="10px" mb="24px">
+            <Button
+              size="sm"
+              onClick={() => setPageIndex((prev) => Math.max(prev - 1, 0))}
+              isDisabled={pageIndex === 0}
+            >
+              Previous
+            </Button>
+            <Button
+              size="sm"
+              onClick={() =>
+                setPageIndex((prev) =>
+                  prev + 1 < Math.ceil(donations.length / rowsPerPage)
+                    ? prev + 1
+                    : prev,
+                )
+              }
+              isDisabled={
+                pageIndex + 1 >= Math.ceil(donations.length / rowsPerPage)
+              }
+            >
+              Next
+            </Button>
+          </Flex>
+        </>
+      )}
     </Card>
   );
 }

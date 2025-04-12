@@ -22,9 +22,9 @@ export default function AdminNavbar(props) {
 	let secondaryText = useColorModeValue('gray.700', 'white');
 	let navbarPosition = 'fixed';
 	let navbarFilter = 'none';
-	let navbarBackdrop = 'blur(20px)';
+	let navbarBackdrop = 'none';
 	let navbarShadow = 'none';
-	let navbarBg = useColorModeValue('rgba(244, 247, 254, 0.2)', 'rgba(11,20,55,0.5)');
+	let navbarBg = useColorModeValue('transparent');
 	let navbarBorder = 'transparent';
 	let secondaryMargin = '0px';
 	let paddingX = '15px';
@@ -88,7 +88,7 @@ export default function AdminNavbar(props) {
 				alignItems={{ xl: 'center' }}
 				mb={gap}>
 				<Box mb={{ sm: '8px', md: '0px' }}>
-					<Breadcrumb>
+					{/* <Breadcrumb>
 						<BreadcrumbItem color={secondaryText} fontSize='sm' mb='5px'>
 							<BreadcrumbLink href='#' color={secondaryText}>
 								Pages
@@ -100,9 +100,9 @@ export default function AdminNavbar(props) {
 								{brandText}
 							</BreadcrumbLink>
 						</BreadcrumbItem>
-					</Breadcrumb>
+					</Breadcrumb> */}
 					{/* Here we create navbar brand, based on route name */}
-					<Link
+					{/* <Link
 						color={mainText}
 						href='#'
 						bg='inherit'
@@ -119,7 +119,7 @@ export default function AdminNavbar(props) {
 							boxShadow: 'none'
 						}}>
 						{brandText}
-					</Link>
+					</Link> */}
 				</Box>
 				<Box ms='auto' w={{ sm: '100%', md: 'unset' }}>
 					<AdminNavbarLinks

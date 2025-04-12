@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Icon } from '@chakra-ui/react';
 import {
   MdBarChart,
@@ -11,13 +10,16 @@ import {
 
 // Admin Imports
 import MainDashboard from 'views/admin/default';
-import NFTMarketplace from 'views/admin/marketplace';
-import Profile from 'views/admin/profile';
-import DataTables from 'views/admin/dataTables';
+import AppointmentForm from 'views/admin/marketplace/components/appointment';
 import RTL from 'views/admin/rtl';
+import DonationRecommendationList from 'views/admin/marketplace/components/donaterecommendationlist';
+import Campaign from 'views/admin/campaign/Campaign'; // ✅ 确保 C 是大写
 
 // Auth Imports
 import SignInCentered from 'views/auth/signIn';
+import PersonalDonation from 'views/admin/personaldonation/personaldonation';
+import ManageAppointmentPage from 'views/admin/manageappoinment/manageappointment';
+import CampaignDonationPage from 'views/admin/donationCampaign/donationCampaign';
 
 const routes = [
   {
@@ -28,9 +30,9 @@ const routes = [
     component: <MainDashboard />,
   },
   {
-    name: 'NFT Marketplace',
+    name: 'Donation Request',
     layout: '/admin',
-    path: '/nft-marketplace',
+    path: '/appointment',
     icon: (
       <Icon
         as={MdOutlineShoppingCart}
@@ -39,36 +41,44 @@ const routes = [
         color="inherit"
       />
     ),
-    component: <NFTMarketplace />,
+    component: <AppointmentForm />,
     secondary: true,
   },
   {
-    name: 'Data Tables',
+    name: 'Manage Appointment (Admin)',
     layout: '/admin',
     icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
-    path: '/data-tables',
-    component: <DataTables />,
+    path: '/manageappointment',
+    component: <ManageAppointmentPage />,
   },
+
   {
-    name: 'Profile',
+    name: 'Personal Donation',
     layout: '/admin',
-    path: '/profile',
+    path: '/donaterecommendationlist',
     icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
-    component: <Profile />,
+    component: <DonationRecommendationList />,
   },
   {
-    name: 'Sign In',
-    layout: '/auth',
-    path: '/sign-in',
-    icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
-    component: <SignInCentered />,
+    name: 'Personal Donation Transaction List',
+    layout: '/admin',
+    path: '/personaldonation',
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    component: <PersonalDonation />,
   },
   {
-    name: 'RTL Admin',
-    layout: '/rtl',
-    path: '/rtl-default',
-    icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
-    component: <RTL />,
+    name: 'Campaign', // ✅ 新增项
+    layout: '/admin',
+    path: '/campaign',
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    component: <Campaign />,
+  },
+  {
+    name: 'Campaign Donation', // ✅ 新增项
+    layout: '/admin',
+    path: '/donationcampaign',
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    component: <CampaignDonationPage />,
   },
 ];
 

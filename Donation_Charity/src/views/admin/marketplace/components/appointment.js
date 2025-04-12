@@ -17,8 +17,8 @@ const BUCKET = 'donationcharity54de4e5ca47d445dbc8135e7c4d74ece85160-dev';
 const s3Client = new S3Client({
   region: REGION,
   credentials: {
-    AWS_ACCESS_KEY = process.env.REACT_APP_AWS_ACCESS_KEY;
-     AWS_SECRET_KEY = process.env.REACT_APP_AWS_SECRET_KEY;
+    AWS_ACCESS_KEY = process.env.REACT_APP_AWS_ACCESS_KEY,
+    AWS_SECRET_KEY = process.env.REACT_APP_AWS_SECRET_KEY,
   },
 });
 
