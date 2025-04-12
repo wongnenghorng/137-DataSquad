@@ -1,0 +1,140 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-donationcharity-dev-85160-authRole",
+      "UnauthRoleArn": "arn:aws:iam::503561442356:role/amplify-donationcharity-dev-85160-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::503561442356:role/amplify-donationcharity-dev-85160-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-donationcharity-dev-85160-deployment",
+      "UnauthRoleName": "amplify-donationcharity-dev-85160-unauthRole",
+      "StackName": "amplify-donationcharity-dev-85160",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:503561442356:stack/amplify-donationcharity-dev-85160/1d361590-14e7-11f0-a0c0-02271dd9e0a5",
+      "AmplifyAppId": "d26kphwalg03vx"
+    }
+  },
+  "api": {
+    "donationcharity": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "br5rms5xwfbdpemoutavpasfke",
+        "GraphQLAPIEndpointOutput": "https://uvrdvteyy5bdbb7yh6pdenfrqi.appsync-api.ap-southeast-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-v2anyo3ifnchjmrpuisrwy6qai"
+      },
+      "lastPushTimeStamp": "2025-04-11T08:02:56.809Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-donationcharity-dev-85160-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apidonationcharity"
+      },
+      "lastPushDirHash": "0kVH7SiDxKdS3/CaASvIJurW1XY="
+    }
+  },
+  "auth": {
+    "donationcharityf3311b23": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-donationcharity-dev-85160-deployment/amplify-cfn-templates/auth/donationcharityf3311b23-cloudformation-template.json",
+        "logicalId": "authdonationcharityf3311b23"
+      },
+      "lastPushTimeStamp": "2025-04-11T08:02:54.600Z",
+      "output": {
+        "UserPoolId": "ap-southeast-1_ezEiwVIfn",
+        "AppClientIDWeb": "7asvl6ioi2tlevj1lc7p9no6l3",
+        "AppClientID": "4su81o6npsr8f5rg0p2jbul2j0",
+        "IdentityPoolId": "ap-southeast-1:80ee7bb1-e575-45b9-8b54-6778b5195f95",
+        "UserPoolArn": "arn:aws:cognito-idp:ap-southeast-1:503561442356:userpool/ap-southeast-1_ezEiwVIfn",
+        "IdentityPoolName": "donationcharityf3311b23_identitypool_f3311b23__dev",
+        "UserPoolName": "donationcharityf3311b23_userpool_f3311b23"
+      },
+      "lastPushDirHash": "HUcwPe1WavNY00ta0ccR1CkG6EE="
+    }
+  },
+  "function": {
+    "S3Triggerf348391b": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true,
+      "lastBuildTimeStamp": "2025-04-11T08:00:36.492Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2025-04-11T08:00:36.528Z",
+      "distZipFilename": "S3Triggerf348391b-6f673337623457306a30-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-donationcharity-dev-85160-deployment",
+        "s3Key": "amplify-builds/S3Triggerf348391b-6f673337623457306a30-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-donationcharity-dev-85160-deployment/amplify-cfn-templates/function/S3Triggerf348391b-cloudformation-template.json",
+        "logicalId": "functionS3Triggerf348391b"
+      },
+      "lastPushTimeStamp": "2025-04-11T08:02:56.809Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::503561442356:role/S3Triggerf348391bLambdaRolef348391b-dev",
+        "Region": "ap-southeast-1",
+        "Arn": "arn:aws:lambda:ap-southeast-1:503561442356:function:S3Triggerf348391b-dev",
+        "Name": "S3Triggerf348391b-dev",
+        "LambdaExecutionRole": "S3Triggerf348391bLambdaRolef348391b-dev"
+      },
+      "lastPushDirHash": "uGftlG1+xMIQ8cULnbRuWXk/Jzk="
+    }
+  },
+  "storage": {
+    "s3c4fb886b": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "S3Triggerf348391b",
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ]
+        }
+      ],
+      "lastPushTimeStamp": "2025-04-11T08:02:54.606Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-donationcharity-dev-85160-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "logicalId": "storages3c4fb886b"
+      },
+      "output": {
+        "BucketName": "donationcharity54de4e5ca47d445dbc8135e7c4d74ece85160-dev",
+        "Region": "ap-southeast-1"
+      },
+      "lastPushDirHash": "6LTNbS8QaEs4TfRLAqogq0D6GBw="
+    }
+  }
+}

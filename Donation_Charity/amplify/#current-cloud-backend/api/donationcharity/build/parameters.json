@@ -1,0 +1,7 @@
+{
+    "AppSyncApiName": "donationcharity",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "S3DeploymentBucket": "amplify-donationcharity-dev-85160-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/bd674dbbdd9d311848752d30723d79cab57952db"
+}

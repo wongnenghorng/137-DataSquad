@@ -1,0 +1,738 @@
+type Appointment {
+  id: ID!
+  name: String!
+  ic: String!
+  age: String!
+  householdIncome: String!
+  householdSize: String!
+  isOku: String!
+  evidencePhoto: String!
+  amountNeeded: String!
+  purpose: String!
+  totalReceipt: String
+  status: String
+  email: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Profile {
+  id: ID!
+  name: String!
+  phoneNumber: String!
+  email: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Donation {
+  id: ID!
+  DonorName: String
+  DonateAmount: String
+  ReceiverName: String
+  email: String
+  createdAt: String
+  updatedAt: String
+}
+
+type Campaign {
+  id: ID!
+  organizerName: String
+  title: String
+  description: String
+  category: String
+  contractAddress: String
+  status: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type DonationCampaign {
+  id: ID!
+  title: String
+  donorName: String
+  donateAmount: String
+  contractAddress: String
+  paymentId: String
+  tx_hash: String
+  blockchainTime: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type CampaignSpending {
+  id: ID!
+  spendPeopleName: String
+  campaignName: String
+  description: String
+  spendAmount: String
+  receiptPic: String
+  contractAddress: String
+  tx_hash: String
+  blockchainTime: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelAppointmentConnection {
+  items: [Appointment]!
+  nextToken: String
+}
+
+input ModelAppointmentFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  ic: ModelStringInput
+  age: ModelStringInput
+  householdIncome: ModelStringInput
+  householdSize: ModelStringInput
+  isOku: ModelStringInput
+  evidencePhoto: ModelStringInput
+  amountNeeded: ModelStringInput
+  purpose: ModelStringInput
+  totalReceipt: ModelStringInput
+  status: ModelStringInput
+  email: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelAppointmentFilterInput]
+  or: [ModelAppointmentFilterInput]
+  not: ModelAppointmentFilterInput
+}
+
+type Query {
+  getAppointment(id: ID!): Appointment
+  listAppointments(filter: ModelAppointmentFilterInput, limit: Int, nextToken: String): ModelAppointmentConnection
+  getProfile(id: ID!): Profile
+  listProfiles(filter: ModelProfileFilterInput, limit: Int, nextToken: String): ModelProfileConnection
+  getDonation(id: ID!): Donation
+  listDonations(filter: ModelDonationFilterInput, limit: Int, nextToken: String): ModelDonationConnection
+  getCampaign(id: ID!): Campaign
+  listCampaigns(filter: ModelCampaignFilterInput, limit: Int, nextToken: String): ModelCampaignConnection
+  getDonationCampaign(id: ID!): DonationCampaign
+  listDonationCampaigns(filter: ModelDonationCampaignFilterInput, limit: Int, nextToken: String): ModelDonationCampaignConnection
+  getCampaignSpending(id: ID!): CampaignSpending
+  listCampaignSpendings(filter: ModelCampaignSpendingFilterInput, limit: Int, nextToken: String): ModelCampaignSpendingConnection
+}
+
+input ModelAppointmentConditionInput {
+  name: ModelStringInput
+  ic: ModelStringInput
+  age: ModelStringInput
+  householdIncome: ModelStringInput
+  householdSize: ModelStringInput
+  isOku: ModelStringInput
+  evidencePhoto: ModelStringInput
+  amountNeeded: ModelStringInput
+  purpose: ModelStringInput
+  totalReceipt: ModelStringInput
+  status: ModelStringInput
+  email: ModelStringInput
+  and: [ModelAppointmentConditionInput]
+  or: [ModelAppointmentConditionInput]
+  not: ModelAppointmentConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+}
+
+input CreateAppointmentInput {
+  id: ID
+  name: String!
+  ic: String!
+  age: String!
+  householdIncome: String!
+  householdSize: String!
+  isOku: String!
+  evidencePhoto: String!
+  amountNeeded: String!
+  purpose: String!
+  totalReceipt: String
+  status: String
+  email: String
+}
+
+input UpdateAppointmentInput {
+  id: ID!
+  name: String
+  ic: String
+  age: String
+  householdIncome: String
+  householdSize: String
+  isOku: String
+  evidencePhoto: String
+  amountNeeded: String
+  purpose: String
+  totalReceipt: String
+  status: String
+  email: String
+}
+
+input DeleteAppointmentInput {
+  id: ID!
+}
+
+type Mutation {
+  createAppointment(input: CreateAppointmentInput!, condition: ModelAppointmentConditionInput): Appointment
+  updateAppointment(input: UpdateAppointmentInput!, condition: ModelAppointmentConditionInput): Appointment
+  deleteAppointment(input: DeleteAppointmentInput!, condition: ModelAppointmentConditionInput): Appointment
+  createProfile(input: CreateProfileInput!, condition: ModelProfileConditionInput): Profile
+  updateProfile(input: UpdateProfileInput!, condition: ModelProfileConditionInput): Profile
+  deleteProfile(input: DeleteProfileInput!, condition: ModelProfileConditionInput): Profile
+  createDonation(input: CreateDonationInput!, condition: ModelDonationConditionInput): Donation
+  updateDonation(input: UpdateDonationInput!, condition: ModelDonationConditionInput): Donation
+  deleteDonation(input: DeleteDonationInput!, condition: ModelDonationConditionInput): Donation
+  createCampaign(input: CreateCampaignInput!, condition: ModelCampaignConditionInput): Campaign
+  updateCampaign(input: UpdateCampaignInput!, condition: ModelCampaignConditionInput): Campaign
+  deleteCampaign(input: DeleteCampaignInput!, condition: ModelCampaignConditionInput): Campaign
+  createDonationCampaign(input: CreateDonationCampaignInput!, condition: ModelDonationCampaignConditionInput): DonationCampaign
+  updateDonationCampaign(input: UpdateDonationCampaignInput!, condition: ModelDonationCampaignConditionInput): DonationCampaign
+  deleteDonationCampaign(input: DeleteDonationCampaignInput!, condition: ModelDonationCampaignConditionInput): DonationCampaign
+  createCampaignSpending(input: CreateCampaignSpendingInput!, condition: ModelCampaignSpendingConditionInput): CampaignSpending
+  updateCampaignSpending(input: UpdateCampaignSpendingInput!, condition: ModelCampaignSpendingConditionInput): CampaignSpending
+  deleteCampaignSpending(input: DeleteCampaignSpendingInput!, condition: ModelCampaignSpendingConditionInput): CampaignSpending
+}
+
+input ModelSubscriptionAppointmentFilterInput {
+  id: ModelSubscriptionIDInput
+  name: ModelSubscriptionStringInput
+  ic: ModelSubscriptionStringInput
+  age: ModelSubscriptionStringInput
+  householdIncome: ModelSubscriptionStringInput
+  householdSize: ModelSubscriptionStringInput
+  isOku: ModelSubscriptionStringInput
+  evidencePhoto: ModelSubscriptionStringInput
+  amountNeeded: ModelSubscriptionStringInput
+  purpose: ModelSubscriptionStringInput
+  totalReceipt: ModelSubscriptionStringInput
+  status: ModelSubscriptionStringInput
+  email: ModelSubscriptionStringInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionAppointmentFilterInput]
+  or: [ModelSubscriptionAppointmentFilterInput]
+}
+
+type Subscription {
+  onCreateAppointment(filter: ModelSubscriptionAppointmentFilterInput): Appointment @aws_subscribe(mutations: ["createAppointment"])
+  onUpdateAppointment(filter: ModelSubscriptionAppointmentFilterInput): Appointment @aws_subscribe(mutations: ["updateAppointment"])
+  onDeleteAppointment(filter: ModelSubscriptionAppointmentFilterInput): Appointment @aws_subscribe(mutations: ["deleteAppointment"])
+  onCreateProfile(filter: ModelSubscriptionProfileFilterInput): Profile @aws_subscribe(mutations: ["createProfile"])
+  onUpdateProfile(filter: ModelSubscriptionProfileFilterInput): Profile @aws_subscribe(mutations: ["updateProfile"])
+  onDeleteProfile(filter: ModelSubscriptionProfileFilterInput): Profile @aws_subscribe(mutations: ["deleteProfile"])
+  onCreateDonation(filter: ModelSubscriptionDonationFilterInput): Donation @aws_subscribe(mutations: ["createDonation"])
+  onUpdateDonation(filter: ModelSubscriptionDonationFilterInput): Donation @aws_subscribe(mutations: ["updateDonation"])
+  onDeleteDonation(filter: ModelSubscriptionDonationFilterInput): Donation @aws_subscribe(mutations: ["deleteDonation"])
+  onCreateCampaign(filter: ModelSubscriptionCampaignFilterInput): Campaign @aws_subscribe(mutations: ["createCampaign"])
+  onUpdateCampaign(filter: ModelSubscriptionCampaignFilterInput): Campaign @aws_subscribe(mutations: ["updateCampaign"])
+  onDeleteCampaign(filter: ModelSubscriptionCampaignFilterInput): Campaign @aws_subscribe(mutations: ["deleteCampaign"])
+  onCreateDonationCampaign(filter: ModelSubscriptionDonationCampaignFilterInput): DonationCampaign @aws_subscribe(mutations: ["createDonationCampaign"])
+  onUpdateDonationCampaign(filter: ModelSubscriptionDonationCampaignFilterInput): DonationCampaign @aws_subscribe(mutations: ["updateDonationCampaign"])
+  onDeleteDonationCampaign(filter: ModelSubscriptionDonationCampaignFilterInput): DonationCampaign @aws_subscribe(mutations: ["deleteDonationCampaign"])
+  onCreateCampaignSpending(filter: ModelSubscriptionCampaignSpendingFilterInput): CampaignSpending @aws_subscribe(mutations: ["createCampaignSpending"])
+  onUpdateCampaignSpending(filter: ModelSubscriptionCampaignSpendingFilterInput): CampaignSpending @aws_subscribe(mutations: ["updateCampaignSpending"])
+  onDeleteCampaignSpending(filter: ModelSubscriptionCampaignSpendingFilterInput): CampaignSpending @aws_subscribe(mutations: ["deleteCampaignSpending"])
+}
+
+type ModelProfileConnection {
+  items: [Profile]!
+  nextToken: String
+}
+
+input ModelProfileFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  phoneNumber: ModelStringInput
+  email: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelProfileFilterInput]
+  or: [ModelProfileFilterInput]
+  not: ModelProfileFilterInput
+}
+
+input ModelProfileConditionInput {
+  name: ModelStringInput
+  phoneNumber: ModelStringInput
+  email: ModelStringInput
+  and: [ModelProfileConditionInput]
+  or: [ModelProfileConditionInput]
+  not: ModelProfileConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+}
+
+input CreateProfileInput {
+  id: ID
+  name: String!
+  phoneNumber: String!
+  email: String!
+}
+
+input UpdateProfileInput {
+  id: ID!
+  name: String
+  phoneNumber: String
+  email: String
+}
+
+input DeleteProfileInput {
+  id: ID!
+}
+
+input ModelSubscriptionProfileFilterInput {
+  id: ModelSubscriptionIDInput
+  name: ModelSubscriptionStringInput
+  phoneNumber: ModelSubscriptionStringInput
+  email: ModelSubscriptionStringInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionProfileFilterInput]
+  or: [ModelSubscriptionProfileFilterInput]
+}
+
+type ModelDonationConnection {
+  items: [Donation]!
+  nextToken: String
+}
+
+input ModelDonationFilterInput {
+  id: ModelIDInput
+  DonorName: ModelStringInput
+  DonateAmount: ModelStringInput
+  ReceiverName: ModelStringInput
+  email: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelDonationFilterInput]
+  or: [ModelDonationFilterInput]
+  not: ModelDonationFilterInput
+}
+
+input ModelDonationConditionInput {
+  DonorName: ModelStringInput
+  DonateAmount: ModelStringInput
+  ReceiverName: ModelStringInput
+  email: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelDonationConditionInput]
+  or: [ModelDonationConditionInput]
+  not: ModelDonationConditionInput
+}
+
+input CreateDonationInput {
+  id: ID
+  DonorName: String
+  DonateAmount: String
+  ReceiverName: String
+  email: String
+  createdAt: String
+  updatedAt: String
+}
+
+input UpdateDonationInput {
+  id: ID!
+  DonorName: String
+  DonateAmount: String
+  ReceiverName: String
+  email: String
+  createdAt: String
+  updatedAt: String
+}
+
+input DeleteDonationInput {
+  id: ID!
+}
+
+input ModelSubscriptionDonationFilterInput {
+  id: ModelSubscriptionIDInput
+  DonorName: ModelSubscriptionStringInput
+  DonateAmount: ModelSubscriptionStringInput
+  ReceiverName: ModelSubscriptionStringInput
+  email: ModelSubscriptionStringInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionDonationFilterInput]
+  or: [ModelSubscriptionDonationFilterInput]
+}
+
+type ModelCampaignConnection {
+  items: [Campaign]!
+  nextToken: String
+}
+
+input ModelCampaignFilterInput {
+  id: ModelIDInput
+  organizerName: ModelStringInput
+  title: ModelStringInput
+  description: ModelStringInput
+  category: ModelStringInput
+  contractAddress: ModelStringInput
+  status: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelCampaignFilterInput]
+  or: [ModelCampaignFilterInput]
+  not: ModelCampaignFilterInput
+}
+
+input ModelCampaignConditionInput {
+  organizerName: ModelStringInput
+  title: ModelStringInput
+  description: ModelStringInput
+  category: ModelStringInput
+  contractAddress: ModelStringInput
+  status: ModelStringInput
+  and: [ModelCampaignConditionInput]
+  or: [ModelCampaignConditionInput]
+  not: ModelCampaignConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+}
+
+input CreateCampaignInput {
+  id: ID
+  organizerName: String
+  title: String
+  description: String
+  category: String
+  contractAddress: String
+  status: String
+}
+
+input UpdateCampaignInput {
+  id: ID!
+  organizerName: String
+  title: String
+  description: String
+  category: String
+  contractAddress: String
+  status: String
+}
+
+input DeleteCampaignInput {
+  id: ID!
+}
+
+input ModelSubscriptionCampaignFilterInput {
+  id: ModelSubscriptionIDInput
+  organizerName: ModelSubscriptionStringInput
+  title: ModelSubscriptionStringInput
+  description: ModelSubscriptionStringInput
+  category: ModelSubscriptionStringInput
+  contractAddress: ModelSubscriptionStringInput
+  status: ModelSubscriptionStringInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionCampaignFilterInput]
+  or: [ModelSubscriptionCampaignFilterInput]
+}
+
+type ModelDonationCampaignConnection {
+  items: [DonationCampaign]!
+  nextToken: String
+}
+
+input ModelDonationCampaignFilterInput {
+  id: ModelIDInput
+  title: ModelStringInput
+  donorName: ModelStringInput
+  donateAmount: ModelStringInput
+  contractAddress: ModelStringInput
+  paymentId: ModelStringInput
+  tx_hash: ModelStringInput
+  blockchainTime: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelDonationCampaignFilterInput]
+  or: [ModelDonationCampaignFilterInput]
+  not: ModelDonationCampaignFilterInput
+}
+
+input ModelDonationCampaignConditionInput {
+  title: ModelStringInput
+  donorName: ModelStringInput
+  donateAmount: ModelStringInput
+  contractAddress: ModelStringInput
+  paymentId: ModelStringInput
+  tx_hash: ModelStringInput
+  blockchainTime: ModelStringInput
+  and: [ModelDonationCampaignConditionInput]
+  or: [ModelDonationCampaignConditionInput]
+  not: ModelDonationCampaignConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+}
+
+input CreateDonationCampaignInput {
+  id: ID
+  title: String
+  donorName: String
+  donateAmount: String
+  contractAddress: String
+  paymentId: String
+  tx_hash: String
+  blockchainTime: String
+}
+
+input UpdateDonationCampaignInput {
+  id: ID!
+  title: String
+  donorName: String
+  donateAmount: String
+  contractAddress: String
+  paymentId: String
+  tx_hash: String
+  blockchainTime: String
+}
+
+input DeleteDonationCampaignInput {
+  id: ID!
+}
+
+input ModelSubscriptionDonationCampaignFilterInput {
+  id: ModelSubscriptionIDInput
+  title: ModelSubscriptionStringInput
+  donorName: ModelSubscriptionStringInput
+  donateAmount: ModelSubscriptionStringInput
+  contractAddress: ModelSubscriptionStringInput
+  paymentId: ModelSubscriptionStringInput
+  tx_hash: ModelSubscriptionStringInput
+  blockchainTime: ModelSubscriptionStringInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionDonationCampaignFilterInput]
+  or: [ModelSubscriptionDonationCampaignFilterInput]
+}
+
+type ModelCampaignSpendingConnection {
+  items: [CampaignSpending]!
+  nextToken: String
+}
+
+input ModelCampaignSpendingFilterInput {
+  id: ModelIDInput
+  spendPeopleName: ModelStringInput
+  campaignName: ModelStringInput
+  description: ModelStringInput
+  spendAmount: ModelStringInput
+  receiptPic: ModelStringInput
+  contractAddress: ModelStringInput
+  tx_hash: ModelStringInput
+  blockchainTime: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelCampaignSpendingFilterInput]
+  or: [ModelCampaignSpendingFilterInput]
+  not: ModelCampaignSpendingFilterInput
+}
+
+input ModelCampaignSpendingConditionInput {
+  spendPeopleName: ModelStringInput
+  campaignName: ModelStringInput
+  description: ModelStringInput
+  spendAmount: ModelStringInput
+  receiptPic: ModelStringInput
+  contractAddress: ModelStringInput
+  tx_hash: ModelStringInput
+  blockchainTime: ModelStringInput
+  and: [ModelCampaignSpendingConditionInput]
+  or: [ModelCampaignSpendingConditionInput]
+  not: ModelCampaignSpendingConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+}
+
+input CreateCampaignSpendingInput {
+  id: ID
+  spendPeopleName: String
+  campaignName: String
+  description: String
+  spendAmount: String
+  receiptPic: String
+  contractAddress: String
+  tx_hash: String
+  blockchainTime: String
+}
+
+input UpdateCampaignSpendingInput {
+  id: ID!
+  spendPeopleName: String
+  campaignName: String
+  description: String
+  spendAmount: String
+  receiptPic: String
+  contractAddress: String
+  tx_hash: String
+  blockchainTime: String
+}
+
+input DeleteCampaignSpendingInput {
+  id: ID!
+}
+
+input ModelSubscriptionCampaignSpendingFilterInput {
+  id: ModelSubscriptionIDInput
+  spendPeopleName: ModelSubscriptionStringInput
+  campaignName: ModelSubscriptionStringInput
+  description: ModelSubscriptionStringInput
+  spendAmount: ModelSubscriptionStringInput
+  receiptPic: ModelSubscriptionStringInput
+  contractAddress: ModelSubscriptionStringInput
+  tx_hash: ModelSubscriptionStringInput
+  blockchainTime: ModelSubscriptionStringInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionCampaignSpendingFilterInput]
+  or: [ModelSubscriptionCampaignSpendingFilterInput]
+}

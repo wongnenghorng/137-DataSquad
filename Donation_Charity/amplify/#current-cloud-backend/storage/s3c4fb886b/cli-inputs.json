@@ -1,0 +1,14 @@
+{
+  "resourceName": "s3c4fb886b",
+  "policyUUID": "c4fb886b",
+  "bucketName": "donationcharity54de4e5ca47d445dbc8135e7c4d74ece",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Triggerf348391b",
+  "groupAccess": {}
+}
